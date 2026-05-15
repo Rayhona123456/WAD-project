@@ -1,4 +1,3 @@
-{% extends 'bootstrap/base.html' %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -26,5 +25,23 @@
       {% block content %}{% endblock %}
     </div>
     <script ... bootstrap JavaScript ...></script>
+    {{ moment.include_moment() }}
+<script>
+function translate(sourceElem, destElem, sourceLang, destLang) {
+    fetch('/translate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            text: sourceElem.innerText,
+            source_language: sourceLang,
+            dest_language: destLang
+        })
+    })
+    .then(response => response.json())
+    .then(data => { destElem.innerText = data.text; });
+}
+</script>
+
+
   </body>
 </html>
